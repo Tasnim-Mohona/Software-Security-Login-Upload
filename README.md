@@ -1,94 +1,103 @@
-# Software Security (CS 4417 / CS 6417)
-## Secure Software Design and Implementation – Winter 2026
-
-### Week 1 Progress Report
-
----
-
-## **Project Overview**
-This project focuses on designing and implementing a small secure web-based application while applying software security principles across the Software Development Life Cycle (SDLC). Emphasis is placed on secure design, threat modeling, attack surface analysis, and validation rather than exploitation.
+# Software Security Project – Week 1 Progress Report  
+**Course:** CS 4417 / CS 6417 – Software Security  
+**Instructor:** Saqib Hakak  
+**Term:** Winter 2026  
+**Checkpoint Date:** February 03  
+**Focus:** Planning, SDLC Choice, and Requirements  
 
 ---
 
-## **Technology Stack Selection**
-
-### **Frontend**
-- **React (JavaScript)**
-- Reasoning:
-  - Component-based architecture improves separation of concerns.
-  - Strong ecosystem for input validation and secure UI handling.
-  - Widely used and well-supported with security-focused linting tools.
-
-### **Backend**
-- **Node.js with Express.js** *(Primary choice)*
-  - Lightweight and suitable for RESTful APIs.
-  - Large ecosystem of security middleware (e.g., Helmet, express-validator).
-  - Easy integration with CI/CD pipelines.
-- *(Python FastAPI kept as a backup alternative if needed)*
-
-### **Database**
-- **PostgreSQL**
-- Reasoning:
-  - Strong support for parameterized queries.
-  - Role-based access control.
-  - Supports encryption at rest and audit logging extensions.
+## 📌 Project Overview
+This project focuses on designing and implementing a **secure web-based application** while integrating software security principles across the **entire SDLC**. The emphasis is on **secure design, threat modeling, attack analysis, and validation**, rather than exploitation.
 
 ---
 
-## **SDLC Choice**
+## 🔁 SDLC Choice & Justification
+We have selected an **Agile SDLC with CI/CD integration** using **GitHub Actions**, managed through a **Kanban workflow**.
 
-### **DevOps with Security Integration (DevSecOps)**
-We selected a DevOps-based SDLC to ensure that security is integrated early and continuously.
+### Why Agile + CI/CD for Security?
+- **Early security feedback:** Automated security checks run on every push and pull request.
+- **Shift-left security:** Security analysis is introduced during sprint planning and enforced in the CI pipeline.
+- **Continuous validation:** Linting, dependency checks, and security scans reduce risk before deployment.
+- **Traceability:** GitHub commits and Actions logs provide evidence for security activities.
 
-**Security integration points:**
-- **Planning Phase:** Identification of authentication, authorization, and input validation requirements.
-- **Development Phase:** Secure coding practices (password hashing, parameterized queries).
-- **CI/CD Pipeline:** Automated linting, dependency scanning, and security testing using GitHub Actions.
-- **Testing Phase:** Validation of login, input handling, and database access controls.
+## 🔄 SDLC Method Comparison and Rationale
 
----
+| Methodology | Why Not Selected | Security Impact |
+|------------|-----------------|-----------------|
+| **Kanban (Pure)** | Lacks time-boxed iterations and formal planning checkpoints. Security tasks can become deprioritized or delayed without explicit sprint goals. | Risk of inconsistent threat modeling and delayed security validation. |
+| **Scrum** | Fixed sprint ceremonies (daily stand-ups, sprint reviews) can be heavy for a small academic team with limited scope and time. Security work may get compressed near sprint end. | Security testing may become reactive instead of continuous. |
+| **Sprint-Only Model** | Focuses mainly on feature delivery within sprints without guaranteed automation between iterations. Does not inherently enforce security checks on every code change. | Misses opportunities for continuous security enforcement and early vulnerability detection. |
+| **Agile + CI/CD (Chosen)** | — | Enables continuous security scanning, automated testing, and early detection of vulnerabilities at every commit and pull request. |
 
-## **CI/CD Tooling**
 
-### **GitHub Actions**
-GitHub Actions is used to automate:
-- Dependency installation
-- Static analysis and linting
-- Security scanning
-- Automated testing
-
-This ensures early detection of vulnerabilities and enforces secure coding practices.
-
----
-
-## **Initial Attack Surface Identification**
-
-Identified entry points include:
-- Login and authentication endpoints
-- Password change functionality
-- User creation (least privilege)
-- Input fields (feedback/contact form)
-- File upload endpoint (restricted – graduate requirement)
-- Database access layer
+### Security Integration Points
+| SDLC Stage | Security Activities |
+|----------|--------------------|
+| Sprint Planning | Identify threats, define security requirements |
+| Development | Secure coding practices, input validation |
+| CI Pipeline | Automated linting, dependency scanning, SAST |
+| Review | Pull request reviews with security focus |
 
 ---
 
-## **Team Roles & Contributions (Week 1)**
-
-- **Developer**
-  - Defined application architecture
-  - Selected frontend, backend, and database stack
-- **Security Analyst**
-  - Identified initial attack surface
-  - Began mapping potential threats to CWE categories
-- **Tester**
-  - Planned authentication and input validation test cases
-  - Reviewed CI/CD testing requirements
+## 🧩 Technology Stack
+**Frontend:** React (JavaScript library)  
+**Backend:** Node.js (Express.js) *or* Python (Flask / FastAPI)  
+**Database:** PostgreSQL  
+**CI/CD:** GitHub Actions  
 
 ---
 
-## **Next Steps (Week 2)**
-- Build authentication flow (login/logout/password change)
-- Implement database schema with hashed passwords
-- Expand attack tree and CWE mapping
-- Integrate security scans into CI pipeline
+## 🛠️ Functional Requirements (Defined – Week 1)
+### Authentication & User Management
+- Secure login/logout
+- Password hashing and least privilege user creation
+- Logging of authentication attempts (Graduate requirement)
+
+### Input Handling
+- Secure input validation to prevent injection attacks
+- Restricted file upload (single file, size/type validation)
+
+### Database Security
+- Parameterized queries
+- Hashed passwords
+- Restricted database access and audit logging
+
+---
+
+## 🧠 Threat Modeling Direction
+- Attack surface identification (login, input fields, file upload, database)
+- Login attack tree (credential attacks, injection, session abuse)
+- Threats mapped to **CWE categories**
+- Reference materials: **SANS**, **OWASP Top 10**
+
+---
+
+## 👥 Team Roles & Contributions
+| Member | Role | Current Responsibilities |
+|------|------|--------------------------|
+| **Mohona** | Security Analyst | Threat modeling, CWE mapping, CI/CD security integration, SANS research |
+| **Franklin** | Frontend Developer | React UI design, secure input handling |
+| **Tet** | Backend Developer | API design, authentication logic, database schema |
+
+Roles may rotate in later sprints.
+
+---
+
+## 📈 Current Status
+- SDLC and CI/CD approach finalized
+- Technology stack selected
+- Team roles assigned
+- Initial security requirements defined
+- GitHub repository structure planned
+
+---
+
+## 🔜 Next Steps (Feb 17 Checkpoint)
+- Initial attack surface documentation
+- Login attack tree (depth ≥ 3)
+- CWE mapping with mitigations
+- CI/CD security tooling expansion
+
+---

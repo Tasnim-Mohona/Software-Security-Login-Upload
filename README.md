@@ -28,7 +28,40 @@ We have selected an **Agile SDLC with CI/CD integration** using **GitHub Actions
 | **Kanban (Pure)** | Lacks time-boxed iterations and formal planning checkpoints. Security tasks can become deprioritized or delayed without explicit sprint goals. | Risk of inconsistent threat modeling and delayed security validation. |
 | **Scrum** | Fixed sprint ceremonies (daily stand-ups, sprint reviews) can be heavy for a small academic team with limited scope and time. Security work may get compressed near sprint end. | Security testing may become reactive instead of continuous. |
 | **Sprint-Only Model** | Focuses mainly on feature delivery within sprints without guaranteed automation between iterations. Does not inherently enforce security checks on every code change. | Misses opportunities for continuous security enforcement and early vulnerability detection. |
-| **Agile + CI/CD (Chosen)** | — | Enables continuous security scanning, automated testing, and early detection of vulnerabilities at every commit and pull request. |
+| ** CI/CD (Chosen)** | — | Enables continuous security scanning, automated testing, and early detection of vulnerabilities at every commit and pull request. |
+
+## 🔁 SDLC Choice: DevOps
+
+We have chosen **DevOps** as our Software Development Life Cycle (SDLC) for this project, with **GitHub Actions** as the CI/CD platform.
+
+DevOps is particularly well-suited for a **security-focused application** because it tightly integrates **development, security, and testing** into a continuous and automated workflow. This approach supports the course objective of applying software security principles **throughout the SDLC**, rather than only at the end of development.
+
+### Security Integration in DevOps
+- **Planning:** Security requirements and threats are identified before implementation.
+- **Development:** Secure coding practices and input validation are enforced.
+- **CI/CD Pipeline:** Automated linting, dependency checks, and static security analysis run on every push and pull request.
+- **Testing & Validation:** Continuous testing ensures early detection and remediation of vulnerabilities.
+- **Monitoring & Logging:** Authentication attempts and system events are logged for auditing and analysis.
+
+---
+
+## 📊 SDLC Comparison and Justification
+
+| SDLC Model | Why It Was Not Chosen | Security Limitations |
+|-----------|----------------------|---------------------|
+| **Kanban** | Focuses on continuous task flow without structured checkpoints. Security tasks may be deprioritized due to lack of enforced review cycles. | Inconsistent security validation and delayed threat analysis. |
+| **Scrum** | Sprint-based ceremonies can be heavy for a small academic team. Security work may be postponed until sprint reviews instead of being continuous. | Security testing becomes periodic rather than continuous. |
+| **Agile (Without CI/CD)** | Emphasizes iteration but does not inherently enforce automated security checks on every code change. | Vulnerabilities may be detected late in the development cycle. |
+| **DevOps (Chosen)** | — | Enables continuous security integration, automated testing, and early vulnerability detection through CI/CD pipelines. |
+
+---
+
+## ⚙️ Why DevOps Is the Best Fit for This Project
+- Supports **shift-left security**, aligning with OWASP and SANS recommendations.
+- Enforces **automated security checks** using GitHub Actions.
+- Provides **traceable evidence** (logs, commits, pipeline runs) for grading and reporting.
+- Encourages collaboration between development and security roles.
+- Matches real-world secure software engineering practices.
 
 
 ### Security Integration Points

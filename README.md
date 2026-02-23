@@ -134,3 +134,19 @@ Roles may rotate in later sprints.
 - CI/CD security tooling expansion
 
 ---
+
+
+---
+
+## ✅ QA Security Additions (CI/CD + Login Testing)
+
+To support the QA role and CI/CD onboarding, this repository now includes:
+
+- A focused security guide for login-page threats and test mapping:
+  - `docs/login-security-problems-and-tests.md`
+- A GitHub Actions workflow for security-focused QA checks:
+  - `.github/workflows/security-qa.yml`
+- A starter automated login security smoke test script:
+  - `scripts/security/login-security-tests.mjs`
+
+These additions provide a practical starting point for running repeatable security checks on every pull request.

@@ -1,0 +1,116 @@
+# .pre-commit-config.yaml
+# ─────────────────────────────────────────────────────────────────────────────
+# Pre-commit hooks: Security checks that run BEFORE `git commit` succeeds.
+# This is the first line of defense — before code even reaches GitHub Actions.
+#
+# SETUP (run once per developer machine):
+#   pip install pre-commit
+#   pre-commit install
+#
+# OWASP categories covered at commit-time:
+#   - Data Protection (secrets, .env files)
+#   - Input Validation (static patterns)
+#   - General Coding Practices (linting, code quality)
+#   - Authentication (no hardcoded credentials)
+# ─────────────────────────────────────────────────────────────────────────────
+
+repos:
+
+  # ─── BUILT-IN HOOKS ──────────────────────────────────────────────────────
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+
+      # OWASP: Data Protection — never commit large binary or data dumps
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+
+      # OWASP: Data Protection — catches accidentally staged .env files
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: check-json
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+      # OWASP: Authentication — prevents .env from being tracked
+      - id: check-dotenv
+
+      # OWASP: System Configuration — no debug private keys committed
+      - id: detect-private-key
+
+  # ─── SECRET DETECTION ────────────────────────────────────────────────────
+  # OWASP: Authentication & Password Management, Data Protection
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.4
+    hooks:
+      - id: gitleaks
+        name: Gitleaks – Detect hardcoded secrets
+        # Catches: API keys, JWT secrets, DB passwords, tokens
+
+  # ─── PYTHON SAST (BANDIT) ────────────────────────────────────────────────
+  # OWASP: Input Validation, Error Handling, General Coding Practices
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.9
+    hooks:
+      - id: bandit
+        name: Bandit – Python security linter
+        args: ["-r", "backend/app", "-ll"]
+        # -ll = warn on medium+high severity only
+        # Catches: eval(), shell injection, weak hashing, assert usage in auth
+
+  # ─── PYTHON LINTING ──────────────────────────────────────────────────────
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.4
+    hooks:
+      - id: ruff
+        name: Ruff – Python linter
+        args: [--fix]
+      - id: ruff-format
+        name: Ruff – Python formatter
+
+  # ─── JAVASCRIPT/TYPESCRIPT LINTING ───────────────────────────────────────
+  # OWASP: Input Validation, Output Encoding, General Coding Practices
+  - repo: local
+    hooks:
+      - id: eslint-frontend
+        name: ESLint – Frontend security linting
+        language: node
+        entry: bash -c 'cd frontend && npx eslint src/ --ext .js,.jsx,.ts,.tsx --max-warnings=0'
+        files: ^frontend/src/
+        pass_filenames: false
+        # Catches: eval(), dangerouslySetInnerHTML, no-implied-eval
+
+      - id: eslint-backend
+        name: ESLint – Backend JS security linting
+        language: node
+        entry: bash -c 'cd backend && npx eslint . --ext .js,.ts --max-warnings=0'
+        files: ^backend/
+        pass_filenames: false
+
+  # ─── DEPENDENCY AUDIT ────────────────────────────────────────────────────
+  # OWASP: General Coding Practices — third party code review
+  - repo: local
+    hooks:
+      - id: npm-audit-frontend
+        name: npm audit – Frontend dependencies
+        language: system
+        entry: bash -c 'cd frontend && npm audit --audit-level=high'
+        files: ^frontend/package\.json$
+        pass_filenames: false
+
+      - id: npm-audit-backend
+        name: npm audit – Backend dependencies
+        language: system
+        entry: bash -c 'cd backend && npm audit --audit-level=high'
+        files: ^backend/package\.json$
+        pass_filenames: false
+
+  # ─── YAML / DOCKER SECURITY ──────────────────────────────────────────────
+  # OWASP: System Configuration
+  - repo: https://github.com/hadolint/hadolint
+    rev: v2.12.0
+    hooks:
+      - id: hadolint-docker
+        name: Hadolint – Dockerfile security linting
+        # Catches: running as root, using latest tag, ADD vs COPY

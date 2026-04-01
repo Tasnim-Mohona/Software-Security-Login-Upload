@@ -1,0 +1,29 @@
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+bin/
+lib/
+include/
+pyvenv.cfg
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Uploads and Database
+uploads/*
+!uploads/.gitkeep
+*.sqlite3
+*.sqlite
+*.db
+
+# Logs
+logs/*
+!logs/.gitkeep
+*.log
